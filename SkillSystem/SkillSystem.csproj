@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{829C46BD-B96D-4424-BFC9-ED7E2D85A21C}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>SkillSystem</RootNamespace>
+    <AssemblyName>SkillSystem</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\Log.cs" />
+    <Compile Include="Common\ObjectPool.cs" />
+    <Compile Include="Common\ObjectPoolContainer.cs" />
+    <Compile Include="SkillSystem\Implements\Ability\Ability.cs" />
+    <Compile Include="SkillSystem\Implements\Ability\AbilityAction.cs" />
+    <Compile Include="SkillSystem\Implements\Ability\AbilityEvent.cs" />
+    <Compile Include="SkillSystem\Implements\Ability\AbilityGroup.cs" />
+    <Compile Include="SkillSystem\Implements\Ability\Modifier.cs" />
+    <Compile Include="SkillSystem\Implements\Ability\TargetSelector.cs" />
+    <Compile Include="SkillSystem\Implements\Enums\AbilityAttachType.cs" />
+    <Compile Include="SkillSystem\Implements\Enums\AbilityEventType.cs" />
+    <Compile Include="SkillSystem\Implements\Enums\AbilityPriority.cs" />
+    <Compile Include="SkillSystem\Implements\Enums\BehaviorType.cs" />
+    <Compile Include="SkillSystem\Implements\Enums\DamageType.cs" />
+    <Compile Include="SkillSystem\Implements\Enums\ModifierState.cs" />
+    <Compile Include="SkillSystem\Implements\Enums\PropertyType.cs" />
+    <Compile Include="SkillSystem\Implements\Enums\TargetFlags.cs" />
+    <Compile Include="SkillSystem\Implements\Enums\TargetTeamType.cs" />
+    <Compile Include="SkillSystem\Implements\Enums\TargetType.cs" />
+    <Compile Include="SkillSystem\Implements\Enums\TargetUnitType.cs" />
+    <Compile Include="SkillSystem\Implements\ModifierProperty\ModifierProperty.cs" />
+    <Compile Include="SkillSystem\Implements\ModifierProperty\ModifierPropertyCalcType.cs" />
+    <Compile Include="SkillSystem\Implements\ModifierProperty\ModifierPropertyType.cs" />
+    <Compile Include="SkillSystem\Implements\ValueExpression\EvalMethod.cs" />
+    <Compile Include="SkillSystem\Implements\ValueExpression\EvalValue.cs" />
+    <Compile Include="SkillSystem\Implements\ValueExpression\ExpressionValue.cs" />
+    <Compile Include="SkillSystem\Implements\ValueExpression\FloatValue.cs" />
+    <Compile Include="SkillSystem\Implements\ValueExpression\NamedValue.cs" />
+    <Compile Include="SkillSystem\Implements\ValueExpression\NoNameExpressionValue.cs" />
+    <Compile Include="SkillSystem\Implements\ValueExpression\ReferenceValue.cs" />
+    <Compile Include="SkillSystem\Implements\ValueExpression\Value.cs" />
+    <Compile Include="SkillSystem\Implements\ValueExpression\ValueArray.cs" />
+    <Compile Include="SkillSystem\Interface\IAction.cs" />
+    <Compile Include="SkillSystem\Interface\IEvent.cs" />
+    <Compile Include="SkillSystem\Runtime\ActionHandler\ActionHandler.cs" />
+    <Compile Include="SkillSystem\Runtime\Base\Boot.cs" />
+    <Compile Include="SkillSystem\Runtime\Base\ILoader.cs" />
+    <Compile Include="SkillSystem\Runtime\Base\ILogger.cs" />
+    <Compile Include="SkillSystem\Runtime\Base\IPhysics.cs" />
+    <Compile Include="SkillSystem\Runtime\Base\IUnit.cs" />
+    <Compile Include="SkillSystem\Runtime\Enums\AreaCenterType.cs" />
+    <Compile Include="SkillSystem\Runtime\Manager\AbilityManager.cs" />
+    <Compile Include="SkillSystem\Runtime\Manager\ModifierManager.cs" />
+    <Compile Include="SkillSystem\Runtime\Runner\AbilityGroupRunner.cs" />
+    <Compile Include="SkillSystem\Runtime\Runner\AbilityRunner.cs" />
+    <Compile Include="SkillSystem\Runtime\Runner\BaseRunner.cs" />
+    <Compile Include="SkillSystem\Runtime\Runner\DelayedActionRunner.cs" />
+    <Compile Include="SkillSystem\Runtime\Runner\ModifierRunner.cs" />
+    <Compile Include="SkillSystem\Runtime\TargetSelector\TargetSelectorArea.cs" />
+    <Compile Include="SkillSystem\Runtime\TargetSelector\TargetSelectorAreaCircle.cs" />
+    <Compile Include="SkillSystem\Runtime\TargetSelector\TargetSelectorAreaRect.cs" />
+    <Compile Include="SkillSystem\Runtime\TargetSelector\TargetSelectorAreaRing.cs" />
+    <Compile Include="SkillSystem\Runtime\TargetSelector\TargetSelectorAreaSector.cs" />
+    <Compile Include="SkillSystem\Runtime\TargetSelector\TargetSelectorAreaSectorArray.cs" />
+    <Compile Include="SkillSystem\Runtime\TargetSelector\TargetSelectorPoints.cs" />
+    <Compile Include="SkillSystem\Runtime\TargetSelector\TargetSelectorSingle.cs" />
+    <Compile Include="SkillSystem\Runtime\Wrapper\ActionWrapper.cs" />
+    <Compile Include="SkillSystem\Runtime\Wrapper\ActionWrapper.DebugDraw.cs" />
+    <Compile Include="SkillSystem\Runtime\Wrapper\ActionWrapper.GetTargets.cs" />
+    <Compile Include="SkillSystem\Runtime\Wrapper\TargetWrapper.cs" />
+    <Compile Include="Common\Color.cs" />
+    <Compile Include="Common\Drawer.cs" />
+    <Compile Include="Common\DrawFlag.cs" />
+    <Compile Include="Common\DumpLogger.cs" />
+    <Compile Include="Common\FixedArray.cs" />
+    <Compile Include="Common\MathExtensions.cs" />
+    <Compile Include="Common\MathUtils.cs" />
+    <Compile Include="Common\Math\AcosLut.cs" />
+    <Compile Include="Common\Math\Fix64SinLut.cs" />
+    <Compile Include="Common\Math\Fix64TanLut.cs" />
+    <Compile Include="Common\Math\FMath.cs" />
+    <Compile Include="Common\Math\FP.cs" />
+    <Compile Include="Common\Math\FRandom.cs" />
+    <Compile Include="Common\Math\FVector2.cs" />
+    <Compile Include="Common\Math\FVector3.cs" />
+    <Compile Include="Common\Math\Matrix2x2.cs" />
+    <Compile Include="Common\Math\Matrix3x3.cs" />
+    <Compile Include="Common\Rotation.cs" />
+    <Compile Include="Common\Settings.cs" />
+    <Compile Include="Common\Transform.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
