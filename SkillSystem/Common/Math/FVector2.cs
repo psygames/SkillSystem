@@ -1,4 +1,4 @@
-﻿#region License
+#region License
 
 /*
 MIT License
@@ -526,7 +526,7 @@ namespace SkillSystem.Common
             FP factor;
             DistanceSquared(ref value, ref _zeroVector, out factor);
             var length = FP.Sqrt(factor);
-            if (length < Settings.Epsilon)
+            if (length < FP.Epsilon)
             {
                 result = value;
                 return FP.Zero;

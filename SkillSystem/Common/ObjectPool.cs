@@ -1,97 +1,61 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
-namespace SkillSystem
-{ 
-	public class ObjectPool<T>
-	{
-		private List<ObjectPoolContainer<T>> list;
-		private Dictionary<T, ObjectPoolContainer<T>> lookup;
-		private Func<T> factoryFunc;
-		private int lastIndex = 0;
+public class ObjectPool<T> where T : new()
+{
+    private readonly Stack<T> m_pool = new Stack<T>();
+    private readonly Action<T> m_ActionOnGet;
+    private readonly Action<T> m_ActionOnRelease;
 
-		public ObjectPool(Func<T> factoryFunc, int initialSize)
-		{
-			this.factoryFunc = factoryFunc;
+    public int countAll { get; private set; }
+    public int countActive { get { return countAll - countInactive; } }
+    public int countInactive { get { return m_pool.Count; } }
 
-			list = new List<ObjectPoolContainer<T>>(initialSize);
-			lookup = new Dictionary<T, ObjectPoolContainer<T>>(initialSize);
+    private object m_lock = new object();
 
-			Warm(initialSize);
-		}
+    public ObjectPool(Action<T> actionOnGet = null, Action<T> actionOnRelease = null)
+    {
+        m_ActionOnGet = actionOnGet;
+        m_ActionOnRelease = actionOnRelease;
+    }
 
-		private void Warm(int capacity)
-		{
-			for (int i = 0; i < capacity; i++)
-			{
-				CreateConatiner();
-			}
-		}
+    public void Clear()
+    {
+        lock (m_lock)
+        {
+            m_pool.Clear();
+            countAll = 0;
+        }
+    }
 
-		private ObjectPoolContainer<T> CreateConatiner()
-		{
-			var container = new ObjectPoolContainer<T>();
-			container.Item = factoryFunc();
-			list.Add(container);
-			return container;
-		}
+    public T Get()
+    {
+        T element;
 
-		public T GetItem()
-		{
-			ObjectPoolContainer<T> container = null;
-			for (int i = 0; i < list.Count; i++)
-			{
-				lastIndex++;
-				if (lastIndex > list.Count - 1) lastIndex = 0;
-				
-				if (list[lastIndex].Used)
-				{
-					continue;
-				}
-				else
-				{
-					container = list[lastIndex];
-					break;
-				}
-			}
+        lock (m_lock)
+        {
+            if (m_pool.Count == 0)
+            {
+                element = new T();
+                countAll++;
+            }
+            else
+            {
+                element = m_pool.Pop();
+            }
+        }
+        if (m_ActionOnGet != null)
+            m_ActionOnGet(element);
+        return element;
+    }
 
-			if (container == null)
-			{
-				container = CreateConatiner();
-			}
-
-			container.Consume();
-			lookup.Add(container.Item, container);
-			return container.Item;
-		}
-
-		public void ReleaseItem(object item)
-		{
-			ReleaseItem((T) item);
-		}
-
-		public void ReleaseItem(T item)
-		{
-			if (lookup.ContainsKey(item))
-			{
-				var container = lookup[item];
-				container.Release();
-				lookup.Remove(item);
-			}
-			else
-			{
-				Log.Warning("This object pool does not contain the item provided: " + item);
-			}
-		}
-
-		public int Count
-		{
-			get { return list.Count; }
-		}
-
-		public int CountUsedItems
-		{
-			get { return lookup.Count; }
-		}
-	}
+    public void Release(T element)
+    {
+        if (m_ActionOnRelease != null)
+            m_ActionOnRelease(element);
+        lock (m_lock)
+        {
+            m_pool.Push(element);
+        }
+    }
 }

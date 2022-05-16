@@ -1,4 +1,4 @@
-﻿namespace SkillSystem.Common
+namespace SkillSystem.Common
 {
     public struct Matrix3x3
     {
@@ -16,14 +16,6 @@
             Ez = c3;
         }
 
-        /// Set this matrix to all zeros.
-        public void SetZero()
-        {
-            Ex.SetZero();
-            Ey.SetZero();
-            Ez.SetZero();
-        }
-
         /// Solve A * x = b, where b is a column vector. This is more efficient
         /// than computing the inverse in one-shot cases.
         public FVector3 Solve33(in FVector3 b)
@@ -35,7 +27,7 @@
             }
 
             FVector3 x;
-            x.X = det * FVector3.Dot(b,  FVector3.Cross(Ey, Ez));
+            x.X = det * FVector3.Dot(b, FVector3.Cross(Ey, Ez));
             x.Y = det * FVector3.Dot(Ex, FVector3.Cross(b, Ez));
             x.Z = det * FVector3.Dot(Ex, FVector3.Cross(Ey, b));
             return x;

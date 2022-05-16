@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{829C46BD-B96D-4424-BFC9-ED7E2D85A21C}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>SkillSystem</RootNamespace>
     <AssemblyName>SkillSystem</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -45,7 +48,6 @@
   <ItemGroup>
     <Compile Include="Common\Log.cs" />
     <Compile Include="Common\ObjectPool.cs" />
-    <Compile Include="Common\ObjectPoolContainer.cs" />
     <Compile Include="SkillSystem\Implements\Ability\Ability.cs" />
     <Compile Include="SkillSystem\Implements\Ability\AbilityAction.cs" />
     <Compile Include="SkillSystem\Implements\Ability\AbilityEvent.cs" />
@@ -103,12 +105,6 @@
     <Compile Include="SkillSystem\Runtime\Wrapper\ActionWrapper.DebugDraw.cs" />
     <Compile Include="SkillSystem\Runtime\Wrapper\ActionWrapper.GetTargets.cs" />
     <Compile Include="SkillSystem\Runtime\Wrapper\TargetWrapper.cs" />
-    <Compile Include="Common\Color.cs" />
-    <Compile Include="Common\Drawer.cs" />
-    <Compile Include="Common\DrawFlag.cs" />
-    <Compile Include="Common\DumpLogger.cs" />
-    <Compile Include="Common\FixedArray.cs" />
-    <Compile Include="Common\MathExtensions.cs" />
     <Compile Include="Common\MathUtils.cs" />
     <Compile Include="Common\Math\AcosLut.cs" />
     <Compile Include="Common\Math\Fix64SinLut.cs" />
@@ -121,9 +117,7 @@
     <Compile Include="Common\Math\Matrix2x2.cs" />
     <Compile Include="Common\Math\Matrix3x3.cs" />
     <Compile Include="Common\Rotation.cs" />
-    <Compile Include="Common\Settings.cs" />
     <Compile Include="Common\Transform.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
